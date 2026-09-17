@@ -23,7 +23,11 @@ void Main_Menu_Update(void)
     CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
     // Draw rectangle
     CP_Graphics_DrawRect(800.0f, 650.0f, 300.0f, 200.0f);
-
+    CP_Settings_Fill(CP_Color_Create(1, 2, 3, 255));
+    CP_Font_Set(myFont);
+    CP_Font_DrawText("Play", 730, 270);
+    CP_Font_Set(myFont);
+    CP_Font_DrawText("Exit", 740, 670);
     if (CP_Input_KeyDown(KEY_Q))
     {
         CP_Engine_Terminate();
