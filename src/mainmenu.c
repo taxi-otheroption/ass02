@@ -1,5 +1,7 @@
 #include "cprocessing.h"
 #include "mainmenu.h"
+#include "game.h"
+#include "utils.h"
 
 CP_Font myFont;
 float textSize;
@@ -15,7 +17,8 @@ void Main_Menu_Init(void)
 void Main_Menu_Update(void)
 {
     // set the background color to gray
-    CP_Graphics_ClearBackground(CP_Color_Create(128, 128, 128, 255));
+    CP_Graphics_ClearBackground(CP_Color_Create(200, 200, 200, 255));
+    IsAreaClicked(650.0f, 950.0f, 150.0f, 350.0f, CP_Input_GetMouseX(), CP_Input_GetMouseY());
     // Rectangle colour = red
     CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
     // Draw rectangle
