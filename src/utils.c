@@ -9,8 +9,12 @@ int IsAreaClicked(float area_center_x, float area_center_y, float area_width, fl
     float right = area_center_x + area_width / 2.0f;
     float top = area_center_y - area_height / 2.0f;
     float bottom = area_center_y + area_height / 2.0f;
+    CP_Settings_Fill(CP_Color_Create(255, 153, 153, 255));
+   
     if ((click_x >= left && click_x <= right) && (click_y >= top && click_y <= bottom))
     {
+
+        CP_Settings_Fill(CP_Color_Create(255, 200, 200, 255));
         if (CP_Input_MouseTriggered(MOUSE_BUTTON_LEFT))
         {
             return 1;
