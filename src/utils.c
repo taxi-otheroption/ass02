@@ -41,3 +41,16 @@ int IsCircleClicked(float circle_center_x, float circle_center_y, float diameter
     }
     return 0;
 }
+int IsWithinBoundary(float ai_x, float ai_y, float player_x, float player_y)
+{
+    float left = ai_x - 100.0f;
+    float right = ai_x + 100.0f;
+    float top = ai_y - 100.0f;
+    float bottom = ai_y + 100.0f;
+
+    if ((player_x >= left && player_x <= right) && (player_y >= top && player_y <= bottom))
+    {
+        return 1;
+    }
+    return 0;
+}
