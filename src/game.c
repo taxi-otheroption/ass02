@@ -28,6 +28,7 @@ float tb_dir;
 
 BOOL a_pressed;
 BOOL b_pressed;
+BOOL collision;
 
 void Game_Init(void)
 {	
@@ -55,7 +56,7 @@ void Game_Init(void)
 	ta_dir = 90;
 	tb_dir = 270;
 
-	a_pressed = FALSE;
+	a_pressed = TRUE;
 	b_pressed = FALSE;
 }
 
@@ -63,13 +64,7 @@ void Game_Init(void)
 void Game_Update(void)
 {
 	CP_Graphics_ClearBackground(CP_Color_Create(200, 200, 200, 255));
-	CP_Settings_Fill(CP_Color_Create(255, 102, 255, 255));
-	CP_Graphics_DrawCircle(a_x, a_y, 50.0f);
-	CP_Settings_Fill(CP_Color_Create(0, 0, 204, 255));
-	CP_Graphics_DrawCircle(b_x, b_y, 50.0f);
-	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
-	CP_Graphics_DrawTriangleAdvanced(ta_tx, ta_ty, ta_rx, ta_ry, ta_lx, ta_ly, ta_dir);
-	CP_Graphics_DrawTriangleAdvanced(tb_tx, tb_ty, tb_rx, tb_ry, tb_lx, tb_ly, tb_dir);
+	
 	if (IsCircleClicked(a_x, a_y, 50.0f, CP_Input_GetMouseX(), CP_Input_GetMouseY()) == 1)
 	{
 		a_pressed = TRUE;
@@ -77,6 +72,21 @@ void Game_Update(void)
 	}
 	if (a_pressed == TRUE)
 	{		
+
+		CP_Settings_Fill(CP_Color_Create(0, 0, 204, 255));
+		CP_Graphics_DrawCircle(b_x, b_y, 50.0f);
+
+		CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+		CP_Graphics_DrawTriangleAdvanced(
+			tb_tx, tb_ty, tb_rx, tb_ry, tb_lx, tb_ly, tb_dir
+		);
+		CP_Settings_Fill(CP_Color_Create(255, 102, 255, 255));
+		CP_Graphics_DrawCircle(a_x, a_y, 50.0f);
+
+		CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+		CP_Graphics_DrawTriangleAdvanced(
+			ta_tx, ta_ty, ta_rx, ta_ry, ta_lx, ta_ly, ta_dir
+		);
 		if (CP_Input_KeyDown(KEY_W))
 		{
 			a_y -= 3.0f;
@@ -112,18 +122,30 @@ void Game_Update(void)
 		}	
 		if (IsWithinBoundary(b_x, b_y, a_x, a_y) == 1)
 		{
-			bx_speed *= -1.0f;
-			tb_dir += 180.0f;
+			if (collision == FALSE)
+			{
+				bx_speed *= -1.0f;
+				collision = TRUE;
+			}
 		}
+		else
+			collision = FALSE;
 		if (b_x < 25 || b_x > 1575)
 		{
 			bx_speed *= -1.0f;
-			tb_dir += 180.0f;
 		}
 		b_x += bx_speed;
 		tb_tx += bx_speed;
 		tb_rx += bx_speed;
 		tb_lx += bx_speed;
+		if (bx_speed > 0)
+		{
+			tb_dir = 90.0f;
+		}
+		else
+		{
+			tb_dir = 270.0f;
+		}
 	}
 	if (IsCircleClicked(b_x, b_y, 50.0f, CP_Input_GetMouseX(), CP_Input_GetMouseY()) == 1)
 	{
@@ -132,6 +154,20 @@ void Game_Update(void)
 	}
 	if (b_pressed == TRUE)
 	{
+		CP_Settings_Fill(CP_Color_Create(255, 102, 255, 255));
+		CP_Graphics_DrawCircle(a_x, a_y, 50.0f);
+
+		CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+		CP_Graphics_DrawTriangleAdvanced(
+			ta_tx, ta_ty, ta_rx, ta_ry, ta_lx, ta_ly, ta_dir
+		);
+		CP_Settings_Fill(CP_Color_Create(0, 0, 204, 255));
+		CP_Graphics_DrawCircle(b_x, b_y, 50.0f);
+
+		CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+		CP_Graphics_DrawTriangleAdvanced(
+			tb_tx, tb_ty, tb_rx, tb_ry, tb_lx, tb_ly, tb_dir
+		);
 		if (CP_Input_KeyDown(KEY_W))
 		{
 			b_y -= 3.0f;
@@ -167,18 +203,30 @@ void Game_Update(void)
 		}
 		if (IsWithinBoundary(a_x, a_y, b_x, b_y) == 1)
 		{
-			ax_speed *= -1.0f;
-			ta_dir += 180.0f;
+			if (collision == FALSE)
+			{
+				ax_speed *= -1.0f;
+				collision = TRUE;
+			}
 		}
+		else
+			collision = FALSE;
 		if (a_x < 25 || a_x > 1575)
 		{
 			ax_speed *= -1.0f;
-			ta_dir += 180.0f;
 		}
 		a_x += ax_speed;
 		ta_tx += ax_speed;
 		ta_rx += ax_speed;
 		ta_lx += ax_speed;
+		if (ax_speed > 0)
+		{
+			ta_dir = 90.0f;      // moving right
+		}
+		else
+		{
+			ta_dir = 270.0f;     // moving left
+		}
 
 	}
 		
