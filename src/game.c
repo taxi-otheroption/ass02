@@ -27,7 +27,7 @@ float tb_dir;
 BOOL a_pressed;
 BOOL b_pressed;
 BOOL t;
-
+CP_Image p;
 
 void Game_Init(void)
 {	
@@ -55,6 +55,8 @@ void Game_Init(void)
 	a_pressed = TRUE;
 	b_pressed = FALSE;
 	t = FALSE;
+
+	p = CP_Image_Load("Assets/p.png");
 }
 
 
@@ -407,6 +409,7 @@ void Game_Update(void)
 			ta_ly += 3.0f;
 		}
 	}
+	CP_Image_DrawAdvanced(p, 800.0f, 400.0f, 200.0f, 200.0f, 255, 0.0f);
 }
 
 void Game_Exit(void)
