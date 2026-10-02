@@ -24,9 +24,14 @@ float tb_ly;
 float ta_dir;
 float tb_dir;
 
+float p_x;
+float p_y;
+float p_dir;
+
 BOOL a_pressed;
 BOOL b_pressed;
 BOOL t;
+BOOL activate_prasanna;
 CP_Image p;
 
 void Game_Init(void)
@@ -52,9 +57,14 @@ void Game_Init(void)
 	ta_dir = 90;
 	tb_dir = 270;
 
+	p_x = 800.0f;
+	p_y = 400.0f;
+	p_dir = 0;
+
 	a_pressed = TRUE;
 	b_pressed = FALSE;
 	t = FALSE;
+	activate_prasanna = FALSE;
 
 	p = CP_Image_Load("Assets/p.png");
 }
@@ -92,8 +102,7 @@ void Game_Update(void)
 			ta_ty -= 3.0f;
 			ta_ry -= 3.0f;
 			ta_ly -= 3.0f;
-			ta_dir = 0.0f;
-			
+			ta_dir = 0.0f;		
 		}
 		if (CP_Input_KeyDown(KEY_A))
 		{
@@ -409,7 +418,34 @@ void Game_Update(void)
 			ta_ly += 3.0f;
 		}
 	}
-	CP_Image_DrawAdvanced(p, 800.0f, 400.0f, 200.0f, 200.0f, 255, 0.0f);
+	if (CP_Input_KeyDown(KEY_P))
+	{
+		activate_prasanna = TRUE;
+	}
+	if (activate_prasanna == TRUE)
+	{
+		if (CP_Input_KeyDown(KEY_RIGHT))
+		{
+			p_x += 5.0f;
+			p_dir += 2.0f;
+		}
+		if (CP_Input_KeyDown(KEY_LEFT))
+		{
+			p_x -= 5.0f;
+			p_dir += 2.0f;
+		}
+		if (CP_Input_KeyDown(KEY_DOWN))
+		{
+			p_y += 5.0f;
+			p_dir += 2.0f;
+		}
+		if (CP_Input_KeyDown(KEY_UP))
+		{
+			p_y -= 5.0f;
+			p_dir += 2.0f;
+		}
+		CP_Image_DrawAdvanced(p, p_x, p_y, 200.0f, 200.0f, 255, p_dir);
+	}
 }
 
 void Game_Exit(void)
