@@ -1,4 +1,17 @@
+//---------------------------------------------------------
+// file:	game.c
+// author:	Muhammad Ibnu Khalis Bin Muhammad Farid
+// email:	[m.binmuhammadfarid@digipen.edu]
+//
+// brief:	game_state after pressing "play" in mainmenu
+//		
+//
+// Copyright © 2026 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include "cprocessing.h"
+#include "mainmenu.h"
+#include "game.h"
 #include "utils.h"
 
 float a_x;
@@ -61,6 +74,10 @@ void Game_Init(void)
 void Game_Update(void)
 {
 	CP_Graphics_ClearBackground(CP_Color_Create(200, 200, 200, 255));
+	if (CP_Input_KeyDown(KEY_Q))
+	{
+		Game_Exit();
+	}
 	
 	if (IsCircleClicked(a_x, a_y, 50.0f, CP_Input_GetMouseX(), CP_Input_GetMouseY()) == 1)
 	{
@@ -411,5 +428,5 @@ void Game_Update(void)
 
 void Game_Exit(void)
 {
-
+	CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
 }

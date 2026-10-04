@@ -1,4 +1,16 @@
+//---------------------------------------------------------
+// file:	mainmenu.c
+// author:	Muhammad Ibnu Khalis Bin Muhammad Farid
+// email:	[m.binmuhammadfarid@digipen.edu]
+//
+// brief:	the first thing user see when running the program
+//		
+//
+// Copyright © 2026 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include "cprocessing.h"
+#include "mainmenu.h"
 #include "game.h"
 #include "utils.h"
 
@@ -27,10 +39,6 @@ void Main_Menu_Update(void)
         CP_Engine_Terminate();
     }
     CP_Graphics_DrawRect(800.0f, 650.0f, 300.0f, 200.0f);
-    if (CP_Input_KeyDown(KEY_Q))
-    {
-        CP_Engine_Terminate();
-    }
     CP_Settings_Fill(CP_Color_Create(1, 2, 3, 255));
     CP_Font_Set(myFont);
     CP_Font_DrawText("Play", 730, 270);

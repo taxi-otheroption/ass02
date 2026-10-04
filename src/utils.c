@@ -1,5 +1,17 @@
+//---------------------------------------------------------
+// file:	utils.c
+// author:	Muhammad Ibnu Khalis Bin Muhammad Farid
+// email:	[m.binmuhammadfarid@digipen.edu]
+//
+// brief:	definition of functions
+//		
+//
+// Copyright © 2026 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include <math.h>
 #include "cprocessing.h"
+#include "utils.h"
 #include "game.h"
 
 
